@@ -1,0 +1,14 @@
+itemGroup.enderScience=Ender Science
+
+tile.enderpearlblock.name=Block of Ender Pearls
+tile.endiumore.name=Endium Ore
+tile.teleporter.name=Ender Teleporter
+
+item.endiumingot.name=Endium Ingot
+item.enderwand.name=Wand of Ender
+
+msg.teleporterstored.txt=Teleporter coordinates have been stored
+msg.cannotpair.txt=You can't link a teleporter to itself, silly!
+msg.paired.txt=Teleporters have been linked.
+msg.noteleporter.txt=This teleporter isn't paired to anything!
+msg.teleporternotexist.txt=That teleporter doesn't exist! Maybe it was broken?
