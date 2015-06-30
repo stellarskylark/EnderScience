@@ -52,7 +52,7 @@ public class EnderScience {
 	public static EnderScience instance;
 	
 	//Where the client and server 'proxy' code is loaded
-	@SidedProxy(clientSide="astroengisci.enderscience.client.ClientProxy", serverSide="astroengisci.enderscience.CommonProxy")
+	@SidedProxy(clientSide="enderscience.github.io.client.ClientProxy", serverSide="enderscience.github.io.CommonProxy")
 	public static CommonProxy proxy;
 	
 	@EventHandler
