@@ -55,7 +55,7 @@ public class Teleporter extends BlockContainer {
 				item.setTagCompound(tag);
 			}
 			
-			//If the stored target teleporter has nothing in it.
+			//If there is no target teleporter stored in the Wand of Ender
 			if(tag.getString("teleporterstored").equals("")) {
 				tag.setString("teleporterstored", pos.getX() + "#" + pos.getY() + "#" + pos.getZ());
 				if(!playerIn.worldObj.isRemote)
@@ -75,4 +75,11 @@ public class Teleporter extends BlockContainer {
 			return true;
 		}
 	}
+	
+	@Override
+	public int getRenderType()
+    {
+        return 3;
+    }
+
 }
