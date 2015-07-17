@@ -20,17 +20,26 @@ import net.minecraftforge.common.ForgeChunkManager.Ticket;
 
 public class TeleporterTileEntity extends TileEntity {
 
-	NBTTagList teleporterlist = new NBTTagList();
+	private NBTTagList teleporterlist = new NBTTagList();
+	private String name;
 	
 	@Override
 	public void writeToNBT(NBTTagCompound var1) {
+		System.out.println("[Ender Science]: Teleporter NBT written");
 		var1.setTag("teleporter", teleporterlist);
+		if(name == null)
+			name = "This Teleporter";
+		var1.setString("name", name);
 		super.writeToNBT(var1);
 	}
 	
 	@Override
 	public void readFromNBT(NBTTagCompound var1) {
+		System.out.println("[Ender Science]: Teleporter NBT read");
 		teleporterlist = var1.getTagList("teleporter", 8);
+		name = var1.getString("name");
+		if (name == null)
+			name = "This Teleporter";
 		super.readFromNBT(var1);
 	}
 	
@@ -155,5 +164,17 @@ public class TeleporterTileEntity extends TileEntity {
 	
 	private String encodeCoords(int x, int y, int z) {
 		return x + "#" + y + "#" + z;
+	}
+	
+	public NBTTagList getList() {
+		return teleporterlist;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String set) {
+		name = set;
 	}
 }

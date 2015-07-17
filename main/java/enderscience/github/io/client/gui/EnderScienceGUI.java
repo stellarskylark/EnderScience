@@ -19,7 +19,8 @@ public class EnderScienceGUI implements IGuiHandler {
 			int x, int y, int z) {
 		if(ID == TeleporterGUI.GUI_ID)
 			return new TeleporterGUI(new BlockPos(x, y, z), world, player);
-		return null;
+		else
+			return null;
 	}
 
 }

@@ -29,7 +29,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 
-@Mod(modid="enderscience", name="Ender Science", version="0.0.1")
+@Mod(modid="enderscience", name="Ender Science", version="0.0.0")
 public class EnderScience {
 	
 	public static CreativeTabs tab = new EnderScienceTab("enderScience");

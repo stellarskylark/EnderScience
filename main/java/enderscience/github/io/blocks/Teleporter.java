@@ -81,5 +81,4 @@ public class Teleporter extends BlockContainer {
     {
         return 3;
     }
-
 }
