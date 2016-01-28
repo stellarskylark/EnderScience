@@ -44,36 +44,28 @@ public class Teleporter extends BlockContainer {
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
 		//Get the tile entity of this teleporter
 		TeleporterTileEntity t = (TeleporterTileEntity) worldIn.getTileEntity(pos);
-		
-		//Check if they're holding an Wand of Ender (trying to pair the teleporters)
+		//Check if they're holding a blank punch card
 		ItemStack item = playerIn.getCurrentEquippedItem();
-		if(item != null && item.getItem() == EnderScience.enderWand) {
-			NBTTagCompound tag = item.getTagCompound();
-			//If the tag doesn't exist
-			if(tag == null) {
-				tag = new NBTTagCompound();
-				item.setTagCompound(tag);
-			}
-			
-			//If there is no target teleporter stored in the Wand of Ender
-			if(tag.getString("teleporterstored").equals("")) {
-				tag.setString("teleporterstored", pos.getX() + "#" + pos.getY() + "#" + pos.getZ());
-				if(!playerIn.worldObj.isRemote)
-					playerIn.addChatMessage(new ChatComponentTranslation("msg.teleporterstored.txt"));
-				return true;
-			}
-			else {
-				String s = tag.getString("teleporterstored");
-				String[] coords = s.split("#");
-				t.pairTeleporter(new BlockPos(Integer.parseInt(coords[0]), Integer.parseInt(coords[1]), Integer.parseInt(coords[2])), worldIn, playerIn);
-				tag.setString("teleporterstored", "");
-				return true;
-			}
-		}
-		else {
-			playerIn.openGui(EnderScience.instance, TeleporterGUI.GUI_ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
+		if(item != null && item.getItem() == EnderScience.blankPunch) {
+			//Replace with written card
+			ItemStack card = new ItemStack(EnderScience.writtenPunch, 1);
+			int slot = playerIn.inventory.currentItem;
+			playerIn.inventory.setInventorySlotContents(slot, card);
+			//Store this teleporter's coordinates in the new punch card
+			NBTTagCompound tag = new NBTTagCompound();
+			tag.setString("teleporter", pos.getX() + "#" + pos.getY() + "#" + pos.getZ());
+			card.setTagCompound(tag);
+			if(playerIn.getCurrentEquippedItem().getTagCompound() == null)
+				System.out.println("[Ender Science]: Failed to write card's NBT.");
+			System.out.println("[Ender Science]: Teleporter coordinates: " + tag.getString("teleporter"));
 			return true;
 		}
+		else if (item != null && item.getItem() == EnderScience.writtenPunch){
+			//TODO: Fix teleport call
+			t.teleport(playerIn, worldIn, item.getTagCompound().getString("teleporter"));
+			return true;
+		}
+		return true;
 	}
 	
 	@Override

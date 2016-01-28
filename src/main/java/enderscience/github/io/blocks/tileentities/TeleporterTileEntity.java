@@ -116,22 +116,16 @@ public class TeleporterTileEntity extends TileEntity {
 			player.addChatMessage(new ChatComponentTranslation("msg.paired.txt"));
 	}
 	
-	public void teleport(EntityPlayer player, World world) {
+	public void teleport(EntityPlayer player, World world, String target) {
 		//TODO Test code
-		if(teleporterlist.tagCount() > 0) {
-			int[] i = decodeCoordsIntArray(teleporterlist.getStringTagAt(new Random().nextInt(teleporterlist.tagCount())));
-			Chunk chunk = world.getChunkFromBlockCoords(new BlockPos(i[0], i[1], i[2]));
-			if(!chunk.isLoaded()) {
-				Ticket ticket = ForgeChunkManager.requestTicket(EnderScience.instance, world, ForgeChunkManager.Type.NORMAL);
-				player.setPosition(i[0] + 0.5, i[1] + 1, i[2] + 0.5);
-				ForgeChunkManager.releaseTicket(ticket);
-			}
-			else
-				player.setPosition(i[0] + 0.5, i[1] + 1, i[2] + 0.5);
+		int[] i = decodeCoordsIntArray(target);
+		Chunk chunk = world.getChunkFromBlockCoords(new BlockPos(i[0], i[1], i[2]));
+		if(!chunk.isLoaded()) {
+			Ticket ticket = ForgeChunkManager.requestTicket(EnderScience.instance, world, ForgeChunkManager.Type.NORMAL);
+			player.setPosition(i[0] + 0.5, i[1] + 1, i[2] + 0.5);
+			ForgeChunkManager.releaseTicket(ticket);
 		}
-		else
-			if(!player.worldObj.isRemote)
-				player.addChatMessage(new ChatComponentTranslation("msg.noteleporter.txt"));
+		player.setPosition(i[0] + 0.5, i[1] + 1, i[2] + 0.5);
 	}
 	
 	/**

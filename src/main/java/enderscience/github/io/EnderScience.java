@@ -42,6 +42,8 @@ public class EnderScience {
 	//Item declarations
 	public static Item endiumIngot = new EndiumIngot();
 	public static Item enderWand = new EnderWand();
+	public static Item blankPunch = new BlankPunchCard();
+	public static Item writtenPunch = new WrittenPunchCard();
 	
 	//Frequent ItemStack references here for microoptimization in recipe creation
 	ItemStack enderPearlStack = new ItemStack(Items.ender_pearl);
@@ -68,6 +70,7 @@ public class EnderScience {
 		//Register items
 		GameRegistry.registerItem(endiumIngot, "endiumingot");
 		GameRegistry.registerItem(enderWand, "enderwand");
+		GameRegistry.registerItem(blankPunch, "blankpunch");
 		
 		//Register crafting recipes
 		GameRegistry.addShapelessRecipe(new ItemStack(enderPearlBlock),
