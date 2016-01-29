@@ -134,7 +134,7 @@ public class TeleporterTileEntity extends TileEntity {
 	 * @return The int[] containing the coordinates
 	 */
 	private int[] decodeCoordsIntArray(String s) {
-		String coords[] = s.split("#");
+		String coords[] = s.split(" ");
 		int[] i = new int[3];
 		i[0] = Integer.parseInt(coords[0]);
 		i[1] = Integer.parseInt(coords[1]);
@@ -143,7 +143,7 @@ public class TeleporterTileEntity extends TileEntity {
 	}
 	
 	private BlockPos decodeCoordsBlockPos(String s) {
-		String coords[]	= s.split("#");
+		String coords[]	= s.split(" ");
 		return new BlockPos(Integer.parseInt(coords[0]), Integer.parseInt(coords[1]), Integer.parseInt(coords[2]));
 	}
 	
@@ -153,11 +153,11 @@ public class TeleporterTileEntity extends TileEntity {
 	 * @return The encoded string
 	 */
 	private String encodeCoords(BlockPos pos) {
-		return pos.getX() + "#" + pos.getY() + "#" + pos.getZ();
+		return pos.getX() + " " + pos.getY() + " " + pos.getZ();
 	}
 	
 	private String encodeCoords(int x, int y, int z) {
-		return x + "#" + y + "#" + z;
+		return x + " " + y + " " + z;
 	}
 	
 	public NBTTagList getList() {
