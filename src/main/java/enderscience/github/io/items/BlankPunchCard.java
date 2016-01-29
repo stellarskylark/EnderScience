@@ -14,5 +14,7 @@ public class BlankPunchCard extends Item {
 		setMaxStackSize(1);
 		setUnlocalizedName("blankpunch");
 		setCreativeTab(EnderScience.tab);
+		setHasSubtypes(true);
+		setMaxDamage(0);
 	}
 }

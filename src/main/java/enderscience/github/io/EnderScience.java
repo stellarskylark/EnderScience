@@ -22,6 +22,7 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
@@ -42,8 +43,7 @@ public class EnderScience {
 	//Item declarations
 	public static Item endiumIngot = new EndiumIngot();
 	public static Item enderWand = new EnderWand();
-	public static Item blankPunch = new BlankPunchCard();
-	public static Item writtenPunch = new WrittenPunchCard();
+	public static Item punchCard = new PunchCard();
 	
 	//Frequent ItemStack references here for microoptimization in recipe creation
 	ItemStack enderPearlStack = new ItemStack(Items.ender_pearl);
@@ -70,7 +70,7 @@ public class EnderScience {
 		//Register items
 		GameRegistry.registerItem(endiumIngot, "endiumingot");
 		GameRegistry.registerItem(enderWand, "enderwand");
-		GameRegistry.registerItem(blankPunch, "blankpunch");
+		GameRegistry.registerItem(punchCard, "punchcard");
 		
 		//Register crafting recipes
 		GameRegistry.addShapelessRecipe(new ItemStack(enderPearlBlock),
@@ -96,6 +96,12 @@ public class EnderScience {
 			
 			//Items
 			renderItem.getItemModelMesher().register(endiumIngot, 0, new ModelResourceLocation("enderscience:endiumingot", "inventory"));
+			renderItem.getItemModelMesher().register(punchCard, 0, new ModelResourceLocation("enderscience:punchcard", "inventory"));
+			renderItem.getItemModelMesher().register(punchCard, 1, new ModelResourceLocation("enderscience:punchcard_written", "inventory"));
+			renderItem.getItemModelMesher().register(punchCard, 2, new ModelResourceLocation("enderscience:punchcard", "inventory"));
+			
+			//Metadata item variants
+			ModelBakery.addVariantName(punchCard, new String[]{"enderscience:punchcard", "enderscience:punchcard_written", "enderscience:punchcard_written"});
 		}
 		
 		//Register GUI handler

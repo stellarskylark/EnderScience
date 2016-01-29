@@ -6,8 +6,8 @@ tile.teleporter.name=Ender Teleporter
 
 item.endiumingot.name=Endium Ingot
 item.enderwand.name=Wand of Ender
-item.blankpunch.name=Blank Punch Card
-item.writtenpunch.name=Written Punch Card
+item.punchcard.written.name=Written Punch Card
+item.punchcard.blank.name=Blank Punch Card
 
 msg.teleporterstored.txt=Teleporter coordinates have been stored
 msg.cannotpair.txt=You can't link a teleporter to itself, silly!
