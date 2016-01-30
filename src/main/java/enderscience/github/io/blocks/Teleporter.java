@@ -60,16 +60,26 @@ public class Teleporter extends BlockContainer {
 				if(playerIn.getCurrentEquippedItem().getTagCompound() == null)
 					System.out.println("[Ender Science]: Failed to write card's NBT.");
 				System.out.println("[Ender Science]: Teleporter coordinates: " + item.getTagCompound().getString("teleporter"));
+				playerIn.addChatMessage(new ChatComponentTranslation("msg.teleporterstored.txt"));
 				return true;
 			}
-		}
-		if(worldIn.isRemote) //Changing the player's position doesn't seem to work server-side
-		{
-			ItemStack item = playerIn.getCurrentEquippedItem();
-			if (item != null && item.getItem() == EnderScience.punchCard && (item.getMetadata() == 1 || item.getMetadata() == 2)){
-				//TODO: Fix teleport call
+			//If clicking with a written punch card and the target teleporter doesn't exist
+			else if((item != null && item.getItem() == EnderScience.punchCard && (item.getMetadata() == 1 || item.getMetadata() == 2)))
+			{
+				if(worldIn.getTileEntity(decodeCoordsBlockPos(item.getTagCompound().getString("teleporter"))) == null
+					|| worldIn.getTileEntity(decodeCoordsBlockPos(item.getTagCompound().getString("teleporter"))).getBlockType() != EnderScience.teleporter)
+				{
+					//Delete punchcard if teleporter doesn't exist.
+					playerIn.addChatMessage(new ChatComponentTranslation("msg.teleporternotexist.txt"));
+					item.stackSize = 0;
+					return true;
+				}
+				else if(decodeCoordsBlockPos(item.getTagCompound().getString("teleporter")).equals(pos))
+				{
+					playerIn.addChatMessage(new ChatComponentTranslation("msg.sameteleporter.txt"));
+					return true;
+				}
 				teleport(playerIn, worldIn, item.getTagCompound().getString("teleporter"));
-				return true;
 			}
 		}
 		return true;
@@ -104,15 +114,20 @@ public class Teleporter extends BlockContainer {
 		return i;
 	}
 	
+	private BlockPos decodeCoordsBlockPos(String s) {
+		String coords[]	= s.split(" ");
+		return new BlockPos(Integer.parseInt(coords[0]), Integer.parseInt(coords[1]), Integer.parseInt(coords[2]));
+	}
+	
 	public void teleport(EntityPlayer player, World world, String target) {
 		int[] i = decodeCoordsIntArray(target);
 		Chunk chunk = world.getChunkFromBlockCoords(new BlockPos(i[0], i[1], i[2]));
 		if(!chunk.isLoaded()) {
 			Ticket ticket = ForgeChunkManager.requestTicket(EnderScience.instance, world, ForgeChunkManager.Type.NORMAL);
-			player.setPosition(i[0] + 0.5, i[1] + 1, i[2] + 0.5);
+			player.setPositionAndUpdate(i[0] + 0.5, i[1] + 1, i[2] + 0.5);
 			ForgeChunkManager.releaseTicket(ticket);
 		}
-		player.setPosition(i[0] + 0.5, i[1] + 1, i[2] + 0.5);
+		player.setPositionAndUpdate(i[0] + 0.5, i[1] + 1, i[2] + 0.5);
 	}
 	
 	

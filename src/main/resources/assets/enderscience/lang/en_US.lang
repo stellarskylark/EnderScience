@@ -10,7 +10,7 @@ item.punchcard.written.name=Written Punch Card
 item.punchcard.blank.name=Blank Punch Card
 
 msg.teleporterstored.txt=Teleporter coordinates have been stored
-msg.cannotpair.txt=You can't link a teleporter to itself, silly!
+msg.sameteleporter.txt=Why are you trying to teleport to your current location?
 msg.paired.txt=Teleporters have been linked.
 msg.noteleporter.txt=This teleporter isn't paired to anything!
-msg.teleporternotexist.txt=That teleporter doesn't exist! Maybe it was broken?
+msg.teleporternotexist.txt=That teleporter doesn't exist! Maybe it was broken? Deleting this punch card...
